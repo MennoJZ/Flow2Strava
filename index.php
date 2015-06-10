@@ -666,9 +666,7 @@ if (isset($_GET) && isset($_GET['code'])) {
     <script src="bootstrap-3.3.4-dist/js/bootstrap.min.js"></script>
     <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
     <script src="bootstrap-3.3.4-dist/assets/js/ie10-viewport-bug-workaround.js"></script>
-    
-    <script src="bootstrap-3.3.4-dist/js/tooltip.min.js"></script>
-    
+        
     <script type="text/javascript">
     $(function () {
 	  $('[data-toggle="popover"]').popover()
