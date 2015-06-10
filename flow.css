@@ -1,0 +1,83 @@
+      :host {
+        * {
+          padding: 0;
+          margin: 0;
+        }
+      }
+
+      .flowcard {
+        -webkit-box-shadow: 0 1px 4px rgba(0,0,0,0.2);
+        box-shadow: 0 1px 4px rgba(0,0,0,0.2);
+        padding: 0px;
+        font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+        position: relative;
+      }
+
+      .athlete-identity.content {
+        padding: 15px 10px 12px 10px;
+      }
+
+      .content {
+        padding: 12px 10px 15px 10px;
+        border-bottom: 1px solid #D6D6D6;
+      }
+
+      p {
+        margin-top: 0px;
+      }
+
+      .avatar {
+        display: inline-block;
+        box-shadow: 0 0 0 3px #fff;
+        border-radius: 50%;
+        overflow: hidden;
+        padding-left: 5px;
+        padding-right: 10px;
+      }
+
+
+      .basic-info {
+        display: inline-block;
+        vertical-align: top;
+        padding-left: 3px;
+        padding-top: 1px;
+      }
+
+      .name {
+        display: block;
+        padding-top: 3px;
+        margin-bottom: 0px;
+        font-size: 18px;
+        font-weight: bold;
+        color: black;
+        text-decoration: none;
+      }
+
+      .address {
+        color: #888;
+        font-size: 14px;
+        margin-top: -3px;
+        display: block;
+      }
+
+      .flow-card-header {
+        margin: 0px 0px 5px 0px;
+        background: #d10027;
+        border: 1px solid #E7E7E7;
+        border-top: 2px solid #EFEFEF;
+        border-left: none;
+        border-right: none;
+        padding: 8px;
+        font-size: 16px;
+        color: #696969;
+        font-weight: normal;
+      }
+
+      .flow-card-header.primary {
+        background: #d10027;
+        color: #fff;
+        font-weight: bold;
+        font-size: 20px;
+        margin-bottom: 2px;
+        border: none;
+      }
