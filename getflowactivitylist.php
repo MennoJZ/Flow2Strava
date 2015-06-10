@@ -1,5 +1,6 @@
 <?php
 
+require_once('config.php');
 require 'stravaV3/Strava.php';
 include 'connect.php';
 include 'functions.php';
@@ -150,7 +151,7 @@ if (isset($_REQUEST) && isset($_REQUEST['code'])) {
 								$params = array('after' => $activity->start-(3*60*60+10), 'per_page' => 1);
 								$activities = $strava->makeApiCall('athlete/activities', $params);
 						
-								if (is_array($activities) and abs( strtotime($activities[0]->start_date_local) - strtotime($activity->datetime) ) < (2*60*60+60)) { // start within 1 minute
+								if (is_array($activities) and abs( strtotime($activities[0]->start_date_local) - strtotime($activity->datetime) ) < (5*60)) { // start within 5 minutes
 									echo "<td><div data-toggle='popover' data-placement='bottom' title='". print_r($activities, true) ."'><a href='https://www.strava.com/activities/". $activities[0]->id ."' target='_new'>". $activities[0]->name ."</a></div></td>";
 								} else {
 									?>
