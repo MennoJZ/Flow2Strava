@@ -1,0 +1,18 @@
+<?php
+	$local_file_dir = getcwd() . '/tcx/';
+	$cookie_file = '/tmp/cook';
+	$tz_fix_offset = '+01:00';
+
+	// user password encryption
+	define('ENCRYPTION_KEY', 'some_encryption_key_you_can_choose_yourself');
+
+	// strava tokens
+	define('STRAVA_SECRET_TOKEN', 'your_strava_application_secret_token');
+	define('STRAVA_CLIENT_ID', 'your_strava_application_client_id');
+
+	// mysql tokens
+	define('MYSQL_SERVER_NAME', 'localhost');
+	define('MYSQL_DATABASE_NAME', 'database_name');
+	define('MYSQL_USER_NAME', 'database_user_name');
+	define('MYSQL_USER_PASSWORD', 'database_password');
+?>
