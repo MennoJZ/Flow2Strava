@@ -12,6 +12,11 @@ include 'connect.php';
 include 'functions.php';
 
 
+//
+if (isset($_GET['state']) and $_GET['state']=='dev' and isset($_GET['code'])){
+	header('Location: http://dev.flow2strava.com/?code='. $_GET['code']);
+}
+
 /**
   * The constructor expects an array of your app's Access Token, Sectret Token, Client ID, the Redirect URL, and cache directory.
   * See http://strava.github.io/api/ for more detail.
@@ -24,7 +29,7 @@ $strava = new Strava(array(
 	'cacheTtl' => 10,  // Number of seconds until cache expires (900 = 15 minutes)
 ));
 
-$stravalink = $strava->requestAccessLink('write','','auto');
+$stravalink = $strava->requestAccessLink('write',array_shift((explode(".",$_SERVER['HTTP_HOST']))),'auto');
 
 if (isset($_GET) && isset($_GET['code'])) {
 	$athlete = $strava->makeApiCall('athlete');
@@ -532,7 +537,7 @@ if (isset($_GET) && isset($_GET['code'])) {
 		// Not Authenticated - Will redirect visitor to Strava for approval
 		} else {
 	//         $strava->requestAccess('write','','auto');
-			$stravalink = $strava->requestAccessLink('write','','auto');
+			$stravalink = $strava->requestAccessLink('write',array_shift((explode(".",$_SERVER['HTTP_HOST']))),'auto');
 			echo "<center><a href='". $stravalink ."'><img src='images/LogInWithStrava@2x.png'></a></center>";
 		}
 	} catch (Exception $e) {
