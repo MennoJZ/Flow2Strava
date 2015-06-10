@@ -6,9 +6,11 @@
  * You'll also need to remove the namespacing when instantiating.
  */
 
+require_once 'config.php';
 require 'stravaV3/Strava.php';
 include 'connect.php';
 include 'functions.php';
+
 
 /**
   * The constructor expects an array of your app's Access Token, Sectret Token, Client ID, the Redirect URL, and cache directory.
@@ -268,8 +270,6 @@ if (isset($_GET) && isset($_GET['code'])) {
 				<div class="col-md-4" style="">
 				<?php if ($user['flow_email']!=null and $user['flow_password_hash']!=null){
 					// Polar flow
-					include('config.php');
-				
 					$end_date = date('d.m.Y');
 					$start_date = date('d.m.Y', time() - 1 * 24 * 60 * 60);
 

@@ -1,5 +1,6 @@
 <?php
 
+require_once 'config.php';
 require 'stravaV3/Strava.php';
 include('connect.php');
 		

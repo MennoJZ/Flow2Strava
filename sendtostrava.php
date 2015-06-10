@@ -1,5 +1,6 @@
 <?php
 
+require_once 'config.php';
 require 'stravaV3/Strava.php';
 include 'functions.php';
 
@@ -27,10 +28,6 @@ if (isset($_POST) && isset($_POST['code'])) {
 		// print_r($athlete);
 
 		// Polar flow
-		include('config.php');
-		include('functions.php');
-
-
 		try {
 			include('connect.php');
 			$stmt = $conn->prepare("SELECT * FROM `users` WHERE `strava_id` = '". $athlete->id ."'"); 
