@@ -121,13 +121,13 @@ if (isset($_GET) && isset($_GET['code'])) {
 	<link href="//maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet">
 
     <!-- Custom styles for this template -->
-    <link href="sticky-footer.css" rel="stylesheet">
+    <link href="css/sticky-footer.css" rel="stylesheet">
 
     <!-- Custom styles for this template -->
     <link href="bootstrap-3.3.4-dist/css/jumbotron.css" rel="stylesheet">
-    <link href="strava.css" rel="stylesheet">
-    <link href="flow.css" rel="stylesheet">
-    <link href="css.css" rel="stylesheet">
+    <link href="css/strava.css" rel="stylesheet">
+    <link href="css/flow.css" rel="stylesheet">
+    <link href="css/css.css" rel="stylesheet">
     <link href="bootstrap-3.3.4-dist/css/navbar-fixed-top.css" rel="stylesheet">
     <link href="bootstrap-3.3.4-dist/css/sticky-footer.css" rel="stylesheet">
     <link href="bootstrap-3.3.4-dist/css/btn-arrow.css" rel="stylesheet">
