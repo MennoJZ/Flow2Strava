@@ -420,7 +420,7 @@ if (isset($_GET) && isset($_GET['code'])) {
 		
 		  <hr class="featurette-divider">
 		  
-		  <center><a href='<?php echo($stravalink); ?>'><img src='LogInWithStrava@2x.png'></a></center>		
+		  <center><a href='<?php echo($stravalink); ?>'><img src='images/LogInWithStrava@2x.png'></a></center>		
 		
 		
 		</div> <!--/ .container -->
@@ -469,7 +469,7 @@ if (isset($_GET) && isset($_GET['code'])) {
       
       <hr class="featurette-divider">
 	  
-	  <center><a href='<?php echo($stravalink); ?>'><img src='LogInWithStrava@2x.png'></a></center>
+	  <center><a href='<?php echo($stravalink); ?>'><img src='images/LogInWithStrava@2x.png'></a></center>
 	  
 	  </div> <!-- /.container -->
 
@@ -528,12 +528,12 @@ if (isset($_GET) && isset($_GET['code'])) {
 		} else if (isset($_GET) && isset($_GET['error'])) {
 			// echo '<strong>Error:</strong> '. $_GET['error'] .'<br />';
 			// $stravalink = $strava->requestAccessLink('write','','auto');
-			// echo "<center><a href='". $stravalink ."'><img src='LogInWithStrava@2x.png'></a></center>";
+			// echo "<center><a href='". $stravalink ."'><img src='images/LogInWithStrava@2x.png'></a></center>";
 		// Not Authenticated - Will redirect visitor to Strava for approval
 		} else {
 	//         $strava->requestAccess('write','','auto');
 			$stravalink = $strava->requestAccessLink('write','','auto');
-			echo "<center><a href='". $stravalink ."'><img src='LogInWithStrava@2x.png'></a></center>";
+			echo "<center><a href='". $stravalink ."'><img src='images/LogInWithStrava@2x.png'></a></center>";
 		}
 	} catch (Exception $e) {
 		echo $e->getMessage();
