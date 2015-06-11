@@ -1,0 +1,83 @@
+-- phpMyAdmin SQL Dump
+-- version 4.4.9
+-- http://www.phpmyadmin.net
+--
+-- Host: localhost
+-- Gegenereerd op: 10 jun 2015 om 20:04
+-- Serverversie: 5.5.44
+-- PHP-versie: 5.5.25
+
+SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
+SET time_zone = "+00:00";
+
+--
+-- Database: `w5997549_flow2strava`
+--
+
+-- --------------------------------------------------------
+
+--
+-- Tabelstructuur voor tabel `uploads`
+--
+
+CREATE TABLE IF NOT EXISTS `uploads` (
+  `upload_id` int(11) NOT NULL,
+  `upload_timestamp` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `strava_id` int(11) NOT NULL,
+  `flow_activity_id` int(11) NOT NULL,
+  `strava_upload_id` int(11) NOT NULL,
+  `strava_activity_id` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_general_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Tabelstructuur voor tabel `users`
+--
+
+CREATE TABLE IF NOT EXISTS `users` (
+  `user_id` int(11) NOT NULL,
+  `first_used` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  `last_used` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
+  `strava_id` int(11) NOT NULL,
+  `strava_firstname` varchar(100) COLLATE latin1_general_ci NOT NULL,
+  `strava_lastname` varchar(100) COLLATE latin1_general_ci NOT NULL,
+  `strava_email` varchar(100) COLLATE latin1_general_ci NOT NULL,
+  `strava_code` varchar(50) COLLATE latin1_general_ci NOT NULL,
+  `strava_athlete_json` text COLLATE latin1_general_ci NOT NULL,
+  `flow_id` int(11) DEFAULT NULL,
+  `flow_email` varchar(100) COLLATE latin1_general_ci DEFAULT NULL,
+  `flow_password_hash` varchar(255) COLLATE latin1_general_ci DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_general_ci;
+
+--
+-- Indexen voor geëxporteerde tabellen
+--
+
+--
+-- Indexen voor tabel `uploads`
+--
+ALTER TABLE `uploads`
+  ADD PRIMARY KEY (`upload_id`);
+
+--
+-- Indexen voor tabel `users`
+--
+ALTER TABLE `users`
+  ADD PRIMARY KEY (`user_id`),
+  ADD UNIQUE KEY `strava_id` (`strava_id`);
+
+--
+-- AUTO_INCREMENT voor geëxporteerde tabellen
+--
+
+--
+-- AUTO_INCREMENT voor een tabel `uploads`
+--
+ALTER TABLE `uploads`
+  MODIFY `upload_id` int(11) NOT NULL AUTO_INCREMENT;
+--
+-- AUTO_INCREMENT voor een tabel `users`
+--
+ALTER TABLE `users`
+  MODIFY `user_id` int(11) NOT NULL AUTO_INCREMENT;
