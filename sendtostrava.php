@@ -25,8 +25,6 @@ if (isset($_POST) && isset($_POST['code'])) {
 		echo ("Field: " . $athlete->errors[0]->field ."<br>");
 		echo ("Code: " . $athlete->errors[0]->code ."<br>");
 	} else {
-		// print_r($athlete);
-
 		// Polar flow
 		try {
 			include('connect.php');
@@ -87,72 +85,19 @@ if (isset($_POST) && isset($_POST['code'])) {
 		$offset = str_replace(':', '', $tz_fix_offset);
 		$newtz = new DateTimezone(timezone_name_from_abbr(null, $offset * 36, false));
 
-		$tcxzipurl = 'https://flow.polar.com/training/analysis/' . $_POST['listItemId'] . '/export/tcx';
-		curl_setopt($ch, CURLOPT_URL, $tcxzipurl); //fetch TCX
-		$tcxzip = curl_exec($ch);
+		$tcxurl = 'https://flow.polar.com/training/analysis/' . $_POST['listItemId'] . '/export/tcx/false';
+		curl_setopt($ch, CURLOPT_URL, $tcxurl); //fetch TCX
+		$tcx = curl_exec($ch);
 		
 		//logout of old session
 		curl_setopt($ch, CURLOPT_URL, 'https://flow.polar.com/logout');
 		$arr = curl_exec($ch);		
 		
-	// 	echo 'done<br>';
-		$zipfilename = tempnam('/tmp/', 'polarsync');
-		file_put_contents($zipfilename, $tcxzip);
+		$filename = tempnam('/tmp/', 'polarsync');
+		file_put_contents($filename, $tcx);
 
-		$zip = new ZipArchive();
-		if (!$zip->open($zipfilename)){
-			die('Something wrong with Polar TCX file.');
-		}
-
-	// 	for ($i = 0; $i < $zip->numFiles; $i++) {
-		$tcxname = @$zip->getNameIndex(0);
-		if (empty($tcxname)){
-			$tcxname = rtrim(base64_encode(md5(microtime())),"=") . ".tcx";
-		}
-
-		$sporttype = strtr(substr($tcxname, 25), '_', '-');
-
-		$t = date_create_from_format('Y-m-d\TH-i-s.uP', substr($tcxname, 0, 24));
-		// $t->setTimezone($newtz);
-// 		$tcxname = date_format($t, 'Y-m-d\TH:i') . '_x_' . $sporttype;
-
-		$tcx = @$zip->getFromIndex(0);
-
-// 		$fixedtcx = preg_replace('/\\.(...)Z/', '.\\1' . $tz_fix_offset, $tcx); //correct timezone
-
-// 		$date = $activity_arr[0]->datetime;
-//         $date = substr($date, 0, 16);
-// 		if (preg_match('/<Activity Sport="Running">/', $tcx)) {
-// 			$tcxname = $date . '_x_Running.tcx';
-// 		} else {
-// 			$tcxname = $date . '_x_Other.tcx';
-// 		}
-
-// 		$tcxname = $date . '_x_Other.tcx';
-		$tcxnamewdir = $local_file_dir . $tcxname;
-
-// 		echo($tcxnamewdir);
-		file_put_contents($tcxnamewdir, $tcx); //save file locally
-
-
-		echo PHP_EOL;
-
-		unlink($zipfilename);
-
-
-		/**
-		  * The constructor expects an array of your app's Access Token, Sectret Token, Client ID, the Redirect URL, and cache directory.
-		  * See http://strava.github.io/api/ for more detail.
-		  */
-		$strava = new Strava(array(
-			'secretToken' => '9714b5e3a90b10004e3a96a8775fbf4359f2bcbe',
-			'clientID' => 6009,
-			'redirectUri' => 'http://www.flow2strava.com',
-			'cacheDir' => 'cache', // Must be writable by web server
-			'cacheTtl' => 10,  // Number of seconds until cache expires (900 = 15 minutes)
-		));
 		
-		$parameters = array('activity_type'=>$_POST['activity_type'], 'name'=>$_POST['stravaname'], 'description'=>$_POST['description'], 'data_type'=>'tcx', 'external_id'=>$_POST['listItemId'], 'file'=>'@'.$tcxnamewdir);	
+		$parameters = array('activity_type'=>$_POST['activity_type'], 'name'=>$_POST['stravaname'], 'description'=>$_POST['description'], 'data_type'=>'tcx', 'external_id'=>$_POST['listItemId'], 'file'=>'@'.$filename);	
 		$upload = $strava->makeApiCall('uploads', $parameters, 'post');
 		
 		
@@ -169,6 +114,7 @@ if (isset($_POST) && isset($_POST['code'])) {
 		}
 		
 		
+		unlink($filename);
 		
 		
 		?>
