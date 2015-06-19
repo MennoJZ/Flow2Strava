@@ -29,7 +29,7 @@ $strava = new Strava(array(
 	'cacheTtl' => 10,  // Number of seconds until cache expires (900 = 15 minutes)
 ));
 
-$stravalink = $strava->requestAccessLink('write',array_shift((explode(".",$_SERVER['HTTP_HOST']))),'auto');
+$stravalink = $strava->requestAccessLink('write,view_private',array_shift((explode(".",$_SERVER['HTTP_HOST']))),'auto');
 
 if (isset($_GET) && isset($_GET['code'])) {
 	$athlete = $strava->makeApiCall('athlete');
@@ -254,7 +254,7 @@ if (isset($_GET) && isset($_GET['code'])) {
 		
 			<h1>What? Flow2Strava?</h1>
 			<p>Having a fantastic Polar <abbr title="V800" id="popover-v800">V800</abbr>, <abbr title="M400" id="popover-m400">M400</abbr>, Loop, <abbr title="A300" id="popover-a300">A300</abbr>, <abbr title="V650" id="popover-v650">V650</abbr> or <abbr title="M450" id="popover-m450">M450</abbr> and using the <a href="https://flow.polar.com" data-toggle="tooltip" data-placement="bottom" title="flow.polar.com">Flow webservice</a>? Tired of exporting TCX files to your computer and uploading them to Strava?</p>
-			<p>[Update] "<i>Polar <a href="http://www.dcrainmaker.com/2015/06/polars-cycling-computer.html#strava-and-other-polar-flow-updates">announced</a> that in October they’ll introduce the ability to have your activities automatically sync to Strava from Polar Flow.</i>" Because October still lasts <?php echo(round(abs(strtotime("2015/10/01") - time())/86400)); ?> days and October might be late this year, you can use this tool until then!</p>
+			<p>Polar <a href="http://updates.polar.com/2015/06/polar-flow-goes-strava/">announced</a> a connection between Strava and Polar Flow which will become available at the end of October 2015. Because <i>end of October</i> still lasts <?php echo(round(abs(strtotime("2015/10/31") - time())/86400)); ?> days and October might be late this year, you can use this tool until then!</p>
 			<p>Already <kbd><?php echo($users['count']); ?></kbd> athletes uploaded <kbd><?php echo($uploads['count']); ?></kbd> activities from Polar Flow to Strava using this tool.</p>
 			<p><a class="btn btn-primary btn-lg" href="?p=learnmore" role="button">Learn more &raquo;</a></p>
 		</div>
@@ -440,7 +440,7 @@ if (isset($_GET) && isset($_GET['code'])) {
       <div class="row featurette">
         <div class="col-md-7">
           <h2 class="featurette-heading">Log in to Strava <span class="text-muted">It'll blow your mind.</span></h2>
-          <p class="lead">Log in to Strava first. Strava uses OAuth2 as an authentication protocol. It allows external applications like Flow2Strava to request authorization to a user’s private data without requiring their Strava username and password. It allows users to grant and <a href="https://www.strava.com/settings/apps" target="_new">revoke API access</a> on a per-application basis and keeps users’ authentication details safe.</p>
+          <p class="lead">Log in to Strava first. Strava uses OAuth2 as an authentication protocol. It allows external applications like Flow2Strava to request authorization to a user's private data without requiring their Strava username and password. It allows users to grant and <a href="https://www.strava.com/settings/apps" target="_new">revoke API access</a> on a per-application basis and keeps users' authentication details safe.</p>
         </div>
         <div class="col-md-5">
           <img class="featurette-image img-responsive center-block" src="images/strava.png" alt="Strava" width="250">
@@ -504,18 +504,13 @@ if (isset($_GET) && isset($_GET['code'])) {
 				<table width="100%" class="table table-striped table-hover">
 					<thead>
 						<tr>
-							<th></th>
-							<th>Type</th>
-							<th>Date</th>
-							<th>Distance</th>
-							<th>Duration</th>
-							<th>Url</th>
-							<th>TCX file</th>
-							<th>On Strava?</th>
+							<th class="text-left" width="40%">Polar Flow</th>
+							<th class="text-center"></th>
+							<th class="text-right" width="40%">Strava</th>
 						</tr>
 					</thead>
 					<tbody id="flowactivities">				
-						<tr><td colspan="7">Loading...</td></tr>
+						<tr><td colspan="4">Loading...</td></tr>
 					</tbody>
 				</table>
 				
@@ -537,7 +532,7 @@ if (isset($_GET) && isset($_GET['code'])) {
 		// Not Authenticated - Will redirect visitor to Strava for approval
 		} else {
 	//         $strava->requestAccess('write','','auto');
-			$stravalink = $strava->requestAccessLink('write',array_shift((explode(".",$_SERVER['HTTP_HOST']))),'auto');
+			$stravalink = $strava->requestAccessLink('write,view_private',array_shift((explode(".",$_SERVER['HTTP_HOST']))),'auto');
 			echo "<center><a href='". $stravalink ."'><img src='images/LogInWithStrava@2x.png'></a></center>";
 		}
 	} catch (Exception $e) {
@@ -565,33 +560,50 @@ if (isset($_GET) && isset($_GET['code'])) {
 				  </div>
 				  <div class="form-group">
 					<label for="stravaname" class="control-label">Title:</label>
-					<input type="text" class="form-control stravaname" id="stravaname" name="stravaname" onclick="this.focus();this.select()">
+					<input type="text" class="form-control stravaname" id="stravaname" name="stravaname" onclick="this.select()" autofocus>
 				  </div>
 				  <div class="form-group">
 					<label for="description" class="control-label">Description:</label>
 					<textarea class="form-control description" id="description" name="description"></textarea>
 				  </div>
-				  <div class="form-group">
-					<label for="activity-type" class="control-label">Activity type:</label>
-					<select class="form-control stravatype" id="activity_type" name="activity_type">
-						<option>Ride</option>
-						<option>Run</option>
-						<option>Swim</option>
-						<option>Workout</option>
-						<option>Hike</option>
-						<option>Walk</option>
-						<option>Nordicski</option>
-						<option>Alpineski</option>
-						<option>Backcountryski</option>
-						<option>Iceskate</option>
-						<option>Inlineskate</option>
-						<option>Kitesurf</option>
-						<option>Rollerski</option>
-						<option>Windsurf</option>
-						<option>Snowboard</option>
-						<option>Snowshoe</option>
-					</select>
-				  </div>          
+				  
+				  
+				  
+				  
+					<div class="row">
+					  <div class="form-group col-md-6">
+						<label for="activity-type" class="control-label">Activity type:</label>
+						<select class="form-control stravatype" id="activity_type" name="activity_type">
+							<option>Ride</option>
+							<option>Run</option>
+							<option>Swim</option>
+							<option>Workout</option>
+							<option>Hike</option>
+							<option>Walk</option>
+							<option>Nordicski</option>
+							<option>Alpineski</option>
+							<option>Backcountryski</option>
+							<option>Iceskate</option>
+							<option>Inlineskate</option>
+							<option>Kitesurf</option>
+							<option>Rollerski</option>
+							<option>Windsurf</option>
+							<option>Snowboard</option>
+							<option>Snowshoe</option>
+						</select>
+					  </div>
+
+					  <div class="form-group col-md-6">
+						<br>
+						<div class="checkbox">
+							<label>
+							  <input type="checkbox" name="private" class="stravaprivate"> Private <span class="glyphicon glyphicon-lock"></span>
+							</label>
+						  </div>
+						
+					  </div>
+					  
+					</div>
 				
 				
 				  <div class="container loading" style="width: 100%; height: 300px; display: none;">
@@ -691,15 +703,16 @@ if (isset($_GET) && isset($_GET['code'])) {
 		var stravatype = button.data('stravatype') // Extract info from data-* attributes
 		// If necessary, you could initiate an AJAX request here (and then do the updating in a callback).
 		// Update the modal's content. We'll use jQuery here, but you could use a data binding library or other methods instead.
-		var modal = $(this)
-		//   modal.find('.modal-title').text('New message to ' + recipient)
-		modal.find('.modal-body .form-group .listitemid').val(listitemid);
-		modal.find('.modal-body .form-group .stravaname').val(stravaname);
-		modal.find('.modal-body .form-group .stravatype').val(stravatype);
-		modal.find('.modal-body .form-group .description').val("Uploaded using flow2strava.com");
-		$('#stravaname').focus();
-	
-	})	
+		$(this).find('.modal-body .form-group .listitemid').val(listitemid);
+		$(this).find('.modal-body .form-group .stravaname').val(stravaname);
+		$(this).find('.modal-body .form-group .stravatype').val(stravatype);
+		$(this).find('.modal-body .form-group .stravaprivate').attr('checked', false);
+		$(this).find('.modal-body .form-group .description').val("Uploaded using flow2strava.com");
+	})
+
+	$('#toStravaModal').on('shown.bs.modal', function () {
+	  $('#stravaname').focus().select()
+	})
     </script>
     
     <script type="text/javascript">
@@ -728,7 +741,7 @@ if (isset($_GET) && isset($_GET['code'])) {
 	});
 	
 	$( ".previous" ).click(function() {
-		$( "#flowactivities" ).html("<tr><td colspan=7>Loading...</td></tr>");
+		$( "#flowactivities" ).html("<tr><td colspan=4>Loading...</td></tr>");
 		$('#currentweek').text( parseInt( $('#currentweek').text(),10 ) - 1 );
 		if (parseInt($("#currentweek").text, 10) >= 0){
 			$(".next").addClass("disabled");
@@ -741,7 +754,7 @@ if (isset($_GET) && isset($_GET['code'])) {
 	});
 	
 	$( ".next" ).click(function() {
-		$( "#flowactivities" ).html("<tr><td colspan=7>Loading...</td></tr>");
+		$( "#flowactivities" ).html("<tr><td colspan=4>Loading...</td></tr>");
 		$('#currentweek').text( parseInt( $('#currentweek').text(),10 ) + 1 );
 		if (parseInt($("#currentweek").text, 10) >= 0){
 			$(".next").addClass("disabled");
