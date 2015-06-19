@@ -100,7 +100,7 @@ if (isset($_POST) && isset($_POST['code'])) {
 		$filename = tempnam('/tmp/', 'polarsync');
 		file_put_contents($filename, $tcx);
 
-		$parameters = array('activity_type'=>$_POST['activity_type'], 'name'=>$_POST['stravaname'], 'description'=>$_POST['description'], 'data_type'=>'tcx', 'external_id'=>$_POST['listItemId'], 'file'=>'@'.$filename, 'private', isset($_POST['private']));
+		$parameters = array('activity_type'=>$_POST['activity_type'], 'name'=>$_POST['stravaname'], 'description'=>$_POST['description'], 'data_type'=>'tcx', 'external_id'=>$_POST['listItemId'], 'private'=>isset($_POST['private']), 'file'=>'@'.$filename);
 		$upload = $strava->makeApiCall('uploads', $parameters, 'post');
 		
 		
