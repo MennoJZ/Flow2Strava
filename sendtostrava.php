@@ -2,7 +2,7 @@
 
 require_once 'config.php';
 require 'stravaV3/Strava.php';
-include 'functions.php';
+include_once 'functions.php';
 
 /**
   * The constructor expects an array of your app's Access Token, Sectret Token, Client ID, the Redirect URL, and cache directory.
@@ -29,8 +29,6 @@ if (isset($_POST) && isset($_POST['code'])) {
 
 		// Polar flow
 		include('config.php');
-		include('functions.php');
-
 
 		try {
 			include('connect.php');

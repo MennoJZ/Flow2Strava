@@ -1,5 +1,4 @@
 <?php
-
 // Encrypt Function
 function mc_encrypt($encrypt, $key){
     $encrypt = serialize($encrypt);
@@ -26,5 +25,4 @@ function mc_decrypt($decrypt, $key){
     $decrypted = unserialize($decrypted);
     return $decrypted;
 }
-
 ?>
