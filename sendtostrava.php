@@ -100,19 +100,6 @@ if (isset($_POST) && isset($_POST['code'])) {
 		$filename = tempnam('/tmp/', 'polarsync');
 		file_put_contents($filename, $tcx);
 
-
-		/**
-		  * The constructor expects an array of your app's Access Token, Sectret Token, Client ID, the Redirect URL, and cache directory.
-		  * See http://strava.github.io/api/ for more detail.
-		  */
-		$strava = new Strava(array(
-			'secretToken' => '9714b5e3a90b10004e3a96a8775fbf4359f2bcbe',
-			'clientID' => 6009,
-			'redirectUri' => 'http://www.flow2strava.com',
-			'cacheDir' => 'cache', // Must be writable by web server
-			'cacheTtl' => 10,  // Number of seconds until cache expires (900 = 15 minutes)
-		));
-		
 		$parameters = array('activity_type'=>$_POST['activity_type'], 'name'=>$_POST['stravaname'], 'description'=>$_POST['description'], 'data_type'=>'tcx', 'external_id'=>$_POST['listItemId'], 'file'=>'@'.$filename, 'private', isset($_POST['private']));
 		$upload = $strava->makeApiCall('uploads', $parameters, 'post');
 		
