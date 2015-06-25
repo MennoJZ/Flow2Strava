@@ -116,6 +116,7 @@ if (isset($_GET) && isset($_GET['code'])) {
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
     <meta name="description" content="Automatically synchronize or manually upload with one click your Polar Flow training files directly to Strava" />
+    <meta name="keywords" content="Polar, Flow, Strava, sync, synchronization, auto, one click, transfer" />
     <meta name="author" content="Menno Zuidema" />
     <link rel="icon" href="images/flow2strava.ico" />
 
@@ -253,7 +254,7 @@ if (isset($_GET) && isset($_GET['code'])) {
 		<div class="jumbotron">
 		
 			<h1>What? Flow2Strava?</h1>
-			<p>Having a fantastic Polar <abbr title="V800" id="popover-v800">V800</abbr>, <abbr title="M400" id="popover-m400">M400</abbr>, Loop, <abbr title="A300" id="popover-a300">A300</abbr>, <abbr title="V650" id="popover-v650">V650</abbr> or <abbr title="M450" id="popover-m450">M450</abbr> and using the <a href="https://flow.polar.com" data-toggle="tooltip" data-placement="bottom" title="flow.polar.com">Flow webservice</a>? Tired of exporting TCX files to your computer and uploading them to Strava?</p>
+			<p>Having a fantastic Polar <abbr title="V800" id="popover-v800">V800</abbr>, <abbr title="M400" id="popover-m400">M400</abbr>, Loop, <abbr title="A300" id="popover-a300">A300</abbr>, <abbr title="V650" id="popover-v650">V650</abbr> or <abbr title="M450" id="popover-m450">M450</abbr> and using the <a href="https://flow.polar.com" data-toggle="tooltip" data-placement="bottom" title="flow.polar.com">Flow webservice</a>? Tired of exporting TCX files to your computer and uploading them to Strava? Using Flow2Strava you can automatically or by one click synchronize your Polar Flow training files to Strava.</p>
 			<p>Polar <a href="http://updates.polar.com/2015/06/polar-flow-goes-strava/">announced</a> a connection between Strava and Polar Flow which will become available at the end of October 2015. Because <i>end of October</i> still lasts <?php echo(round(abs(strtotime("2015/10/31") - time())/86400)); ?> days and October might be late this year, you can use this tool until then!</p>
 			<p>Already <kbd><?php echo($users['count']); ?></kbd> athletes uploaded <kbd><?php echo($uploads['count']); ?></kbd> activities from Polar Flow to Strava using this tool.</p>
 			<p><a class="btn btn-primary btn-lg" href="?p=learnmore" role="button">Learn more &raquo;</a></p>
