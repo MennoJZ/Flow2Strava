@@ -56,7 +56,7 @@ function getFlowActivityArray($start_date, $end_date, $email, $password){
 	curl_setopt($ch, CURLOPT_URL, 'https://flow.polar.com/logout');
 	$arr = curl_exec($ch); //logout of old session
 	
-	return $activity_arr;
+	return array_reverse($activity_arr);
 }
 
 function getFlowActivityFromIconUrl($activity){
